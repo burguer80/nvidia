@@ -1,0 +1,7 @@
+{
+  "name": "nvidia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
