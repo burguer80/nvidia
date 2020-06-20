@@ -18,7 +18,10 @@ export class AuthService {
     }
 
     recaptchaVerifier(recaptchaContainerId: string) {
-        return new firebase.auth.RecaptchaVerifier(recaptchaContainerId, {size: 'invisible'});
+        const options = {
+            size: 'invisible'
+        };
+        return new firebase.auth.RecaptchaVerifier(recaptchaContainerId, options);
     }
 
     sendOTP(phoneNumber, recaptchaVerifier): Promise<firebase.auth.ConfirmationResult> {

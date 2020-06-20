@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "nvidia-fx": {
+      "hosting": {
+        "app": [
+          "nvidia-fx"
+        ]
+      }
+    }
+  }
+}
