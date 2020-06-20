@@ -16,12 +16,16 @@ export class AppComponent implements OnInit {
     public selectedIndex = 0;
     public appPages = [
         {
+            title: 'dashboard',
+            url: '/dashboard',
+            icon: 'home'
+        }, {
             title: 'login',
             url: '/login',
             icon: 'mail'
         }
     ];
-    sideNavDisabled = of(true);
+    isLoggedIn = of(false);
 
     constructor(
         public authService: AuthService,
@@ -45,7 +49,7 @@ export class AppComponent implements OnInit {
             this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
         }
         this.authService.isLoggedIn.pipe(distinctUntilChanged()).subscribe((isLoggedIn) => {
-            this.sideNavDisabled = of(!isLoggedIn);
+            this.isLoggedIn = of(!isLoggedIn);
         });
     }
 }

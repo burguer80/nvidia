@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./modules/pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./modules/pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
   }
 //  TODO: authguard https://gist.github.com/DrDanL/76c5e5ec7c7442ef3ce6790db84794b7
 ];
