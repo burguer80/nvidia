@@ -1,6 +1,6 @@
 <ion-app>
     <ion-split-pane contentId="main-content">
-        <ion-menu contentId="main-content" type="overlay" [disabled]=" isLoggedIn === false">
+        <ion-menu contentId="main-content" type="overlay" [disabled]="sideNavDisabled | async">
             <ion-content>
                 <ion-list id="inbox-list">
                     <ion-list-header>Inbox</ion-list-header>
@@ -13,7 +13,7 @@
                         </ion-item>
                     </ion-menu-toggle>
                 </ion-list>
-                <ion-item (click)="authService.signOut()" lines="none" detail="false">
+                <ion-item (click)="authService.logOut()" lines="none" detail="false">
                     <ion-icon slot="start" ios="exit-outline" md="exit-sharp"></ion-icon>
                     <ion-label>Logout</ion-label>
                 </ion-item>

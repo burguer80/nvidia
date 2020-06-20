@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../core/services/auth.service';
 import * as localizedStrings from '../../core/consts/localized-strings.const';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginPage implements OnInit {
     phoneNumber;
     otp;
 
-    constructor(public authService: AuthService) {
+    constructor(public authService: AuthService, private router: Router) {
     }
 
     ngOnInit() {
@@ -28,12 +29,13 @@ export class LoginPage implements OnInit {
         }).catch(console.error);
     }
 
-   verifyOTP() {
+    verifyOTP() {
         this.authService.verifyOTP(this.otp, this.confirmationResult).then(() => {
             alert('OTP verified');
+            this.router.navigate(['dashboard']);
         }).catch(err => {
             console.error(err);
-            this.authService.signOut();
+            this.authService.logOut();
         });
     }
 }

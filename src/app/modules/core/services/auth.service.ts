@@ -22,7 +22,6 @@ export class AuthService {
 
     get isLoggedIn(): Observable<boolean> {
         return this.af.authState.pipe(
-            // take(1),
             map((user: any) => {
                 return !!user;
             }),
@@ -37,7 +36,7 @@ export class AuthService {
             }));
     }
 
-    signOut() {
+    logOut() {
         return this.af.auth.signOut().then(() => {
             console.log('Logged out');
             this.router.navigate(['login']);

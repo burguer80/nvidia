@@ -19,13 +19,9 @@ export class AppComponent implements OnInit {
             title: 'dashboard',
             url: '/dashboard',
             icon: 'home'
-        }, {
-            title: 'login',
-            url: '/login',
-            icon: 'mail'
         }
     ];
-    isLoggedIn = of(false);
+    sideNavDisabled = of(true);
 
     constructor(
         public authService: AuthService,
@@ -49,7 +45,7 @@ export class AppComponent implements OnInit {
             this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
         }
         this.authService.isLoggedIn.pipe(distinctUntilChanged()).subscribe((isLoggedIn) => {
-            this.isLoggedIn = of(!isLoggedIn);
+            this.sideNavDisabled = of(!isLoggedIn);
         });
     }
 }
