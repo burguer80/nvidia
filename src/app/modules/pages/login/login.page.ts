@@ -13,6 +13,7 @@ export class LoginPage implements OnInit {
     recaptchaContainer = localizedStrings.RecaptchaContainer;
     phoneNumber;
     otp;
+
     constructor(public authService: AuthService) {
     }
 
@@ -27,9 +28,12 @@ export class LoginPage implements OnInit {
         }).catch(console.error);
     }
 
-    verifyOTP() {
+   verifyOTP() {
         this.authService.verifyOTP(this.otp, this.confirmationResult).then(() => {
             alert('OTP verified');
-        }).catch(console.error);
+        }).catch(err => {
+            console.error(err);
+            this.authService.signOut();
+        });
     }
 }

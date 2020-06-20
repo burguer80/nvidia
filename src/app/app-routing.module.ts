@@ -8,13 +8,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./modules/pages/login/login.module').then( m => m.LoginPageModule)
   }
+//  TODO: authguard https://gist.github.com/DrDanL/76c5e5ec7c7442ef3ce6790db84794b7
 ];
 
 @NgModule({

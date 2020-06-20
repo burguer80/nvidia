@@ -3,6 +3,9 @@ import {Injectable} from '@angular/core';
 import * as firebase from 'firebase';
 import {AngularFireAuth} from '@angular/fire/auth';
 import ConfirmationResult = firebase.auth.ConfirmationResult;
+import {map, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -10,11 +13,35 @@ import ConfirmationResult = firebase.auth.ConfirmationResult;
 export class AuthService {
     firebaseConfirmationResult: firebase.auth.ConfirmationResult;
 
-    constructor(public af: AngularFireAuth) {
+    constructor(public af: AngularFireAuth, private router: Router) {
     }
 
     get confirmationResult(): ConfirmationResult {
         return this.firebaseConfirmationResult;
+    }
+
+    get isLoggedIn(): Observable<boolean> {
+        return this.af.authState.pipe(
+            // take(1),
+            map((user: any) => {
+                return !!user;
+            }),
+            tap(loggedIn => {
+                if (loggedIn) {
+                    console.log('access granted');
+                    return true;
+                } else {
+                    console.log('access denied');
+                    return false;
+                }
+            }));
+    }
+
+    signOut() {
+        return this.af.auth.signOut().then(() => {
+            console.log('Logged out');
+            this.router.navigate(['login']);
+        });
     }
 
     recaptchaVerifier(recaptchaContainerId: string) {
