@@ -6,6 +6,7 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AuthService} from './modules/core/services/auth.service';
 import {distinctUntilChanged} from 'rxjs/operators';
 import {of} from 'rxjs';
+import {NavigationService} from './modules/core/services/navigation.service';
 
 @Component({
     selector: 'app-root',
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
     constructor(
         public authService: AuthService,
         private platform: Platform,
+        private navigationService: NavigationService,
         private splashScreen: SplashScreen,
         private statusBar: StatusBar
     ) {
@@ -51,6 +53,9 @@ export class AppComponent implements OnInit {
         }
         this.authService.isLoggedIn.pipe(distinctUntilChanged()).subscribe((isLoggedIn) => {
             this.sideNavDisabled = of(!isLoggedIn);
+            if (!isLoggedIn) {
+                this.navigationService.navigateToLogin();
+            }
         });
     }
 }
