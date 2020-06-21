@@ -15,6 +15,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 import {environment} from '../environments/environment';
 import {AuthService} from './modules/core/services/auth.service';
+import {NavigationService} from './modules/core/services/navigation.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -29,6 +30,7 @@ import {AuthService} from './modules/core/services/auth.service';
     ],
     providers: [
         AuthService,
+        NavigationService,
         StatusBar,
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}

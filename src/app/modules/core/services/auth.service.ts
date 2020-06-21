@@ -5,7 +5,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import ConfirmationResult = firebase.auth.ConfirmationResult;
 import {map, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {Router} from '@angular/router';
+import {NavigationService} from './navigation.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 export class AuthService {
     firebaseConfirmationResult: firebase.auth.ConfirmationResult;
 
-    constructor(public af: AngularFireAuth, private router: Router) {
+    constructor(public af: AngularFireAuth, private navigationService: NavigationService) {
     }
 
     get confirmationResult(): ConfirmationResult {
@@ -39,7 +39,7 @@ export class AuthService {
     logOut() {
         return this.af.auth.signOut().then(() => {
             console.log('Logged out');
-            this.router.navigate(['/login']);
+            this.navigationService.navigateToLogin();
         });
     }
 

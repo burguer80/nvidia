@@ -3,12 +3,14 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '
 import {Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {map, tap} from 'rxjs/operators';
+import {NavigationService} from '../services/navigation.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-    constructor(private af: AngularFireAuth, private router: Router) {
+    constructor(private af: AngularFireAuth,
+                private navigationService: NavigationService) {
     }
 
     canActivate(
@@ -22,7 +24,7 @@ export class AuthGuard implements CanActivate {
                 if (loggedIn) {
                     return true;
                 } else {
-                    this.router.navigate(['login']);
+                    this.navigationService.navigateToLogin();
                 }
             }));
     }
