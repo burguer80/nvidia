@@ -6,6 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ionic serve",
+    "lab": "ionic lab",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

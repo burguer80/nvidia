@@ -19,6 +19,11 @@ export class AppComponent implements OnInit {
             title: 'dashboard',
             url: '/dashboard',
             icon: 'home'
+        },
+        {
+            title: 'account',
+            url: '/account',
+            icon: 'person'
         }
     ];
     sideNavDisabled = of(true);
