@@ -1,0 +1,5 @@
+<ion-item>
+  <ion-select class="myCustomSelect" placeholder="{{this.localizedStrings.SelectCountry}}" interface="action-sheet" value="{{defaultCountryCode}}" (ionChange)="updateSelectedCountryCode($event.detail.value)">
+    <ion-select-option *ngFor="let c of countries" value="{{c.dial_code}}">{{c.flag}} {{c.name}} ({{c.dial_code}})</ion-select-option>
+  </ion-select>
+</ion-item>

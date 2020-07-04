@@ -50,8 +50,9 @@ export class AuthService {
         return new firebase.auth.RecaptchaVerifier(recaptchaContainerId, options);
     }
 
-    sendOTP(phoneNumber, recaptchaVerifier): Promise<firebase.auth.ConfirmationResult> {
-        return this.af.auth.signInWithPhoneNumber(phoneNumber, recaptchaVerifier);
+    async sendOTP(phoneNumber, recaptchaVerifier): Promise<firebase.auth.ConfirmationResult> {
+        this.af.auth.languageCode = 'es';
+        return await this.af.auth.signInWithPhoneNumber(phoneNumber, recaptchaVerifier);
     }
 
     verifyOTP(otp: string, confirmationResult: ConfirmationResult) {
