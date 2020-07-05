@@ -1,24 +1,54 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>login</ion-title>
-    </ion-toolbar>
-</ion-header>
-
-<ion-content class="ion-padding ion-text-center">
-
-    <div id="recaptcha-container"></div>
-
-    <ion-item>
-        <ion-label position="floating">Phone Number</ion-label>
-        <ion-input [(ngModel)]="phoneNumber"></ion-input>
-    </ion-item>
-    <ion-button style="float: right; margin-top: 30px;" (click)="sendOTP()"> Send OTP</ion-button>
-
-
-    <ion-item>
-        <ion-label position="floating">Verify OTP</ion-label>
-        <ion-input [(ngModel)]="otp"></ion-input>
-    </ion-item>
-    <ion-button style="float: right; margin-top: 30px;" (click)="verifyOTP()"> Verify OTP</ion-button>
-
+<ion-content class="ion-padding ion-text-left">
+    <figure align="center">
+        <img alt="Brand Image" src="assets/girl-mobile.svg"/>
+    </figure>
+    <ion-progress-bar *ngIf="showProgressBar" type="indeterminate"></ion-progress-bar>
+    <form [formGroup]="stepOne" [hidden]="hidePhoneNumberSection">
+        <app-phone-with-country-code
+                (selectedCode)="updateSelectedCountryCode($event)"></app-phone-with-country-code>
+        <ion-item *ngIf="showPhoneInput()">
+            <ion-label position="floating">{{this.localizedStrings.PhoneNumber}}</ion-label>
+            <ion-input #phoneLineInput
+                       appPhoneNumber
+                       formControlName="phoneLine"
+                       maxlength="16"
+                       placeholder="(686) 123 - 4567"
+                       spellcheck="false"
+                       type="tel"></ion-input>
+        </ion-item>
+    </form>
+    <div id="recaptcha-container">
+    </div>
+    <div [hidden]="hideConfirmationSection">
+        <hr>
+        <p align="center">{{this.localizedStrings.ConfirmationCodeSent}} {{this.phoneNumber.e164}}</p>
+        <div align="center">
+            <countdown #cd [config]="{leftTime: countdownSeconds, format: 'mm:ss'}"
+                       (event)="finishCountDown($event)"></countdown>
+        </div>
+        <hr>
+        <form [formGroup]="stepTwo">
+            <ion-item>
+                <ion-label position="floating">{{this.localizedStrings.ConfirmationCode}}</ion-label>
+                <ion-input #confirmationCodeInput
+                           formControlName="confirmationCode"
+                           maxlength="6"
+                           placeholder="{{this.localizedStrings.EnterHereConfirmationCode}}"
+                           spellcheck="false"
+                           type="tel"></ion-input>
+            </ion-item>
+        </form>
+    </div>
 </ion-content>
+<ion-footer>
+    <ion-button [disabled]="!this.stepOne.valid" *ngIf="!hidePhoneNumberSection"
+                (click)="sendOTP()" size="large"
+                expand="block">{{this.localizedStrings.Continue}}</ion-button>
+
+    <ion-button [disabled]="!this.stepTwo.valid" *ngIf="!hideConfirmationSection"
+                (click)="verifyOTP()" size="large"
+                expand="block">{{this.localizedStrings.Confirm}}</ion-button>
+</ion-footer>
+
+
+
