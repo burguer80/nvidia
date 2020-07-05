@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import CountryCodes from '../../data/countryCodes.json';
+import {CountryCodes} from '../../consts/countryCodes';
 
 import * as localizedStrings from '../../../modules/core/consts/localized-strings.const';
 
@@ -24,5 +24,4 @@ export class PhoneWithCountryCodeComponent implements OnInit {
     updateSelectedCountryCode(code) {
         this.selectedCode.emit(code);
     }
-
 }

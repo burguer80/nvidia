@@ -1,4 +1,4 @@
-[
+export const CountryCodes = [
   {
     "name": "Argentina",
     "dial_code": "+54",
