@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
 import ConfirmationResult = firebase.auth.ConfirmationResult;
 import {map, tap} from 'rxjs/operators';

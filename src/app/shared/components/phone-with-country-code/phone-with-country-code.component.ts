@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
+import {Country} from '../../models/country.model';
 import {CountryCodes} from '../../consts/countryCodes';
 
 import * as localizedStrings from '../../../modules/core/consts/localized-strings.const';
