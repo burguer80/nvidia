@@ -20,7 +20,7 @@ describe('ErrorService', () => {
             expect(service.handleError).toBeTruthy();
         });
         it('should open alert window with proper message', () => {
-            spyOn(window, 'alert');
+            spyOn(console, 'error');
             const errorMessages = service['errorMessages'];
 
             Object.keys(errorMessages).map(function (errorCode) {
@@ -28,17 +28,17 @@ describe('ErrorService', () => {
 
                 service.handleError(errorCode);
                 console.log(`${errorCode} returns proper message : ${(!!expectedMessage)}`);
-                expect(window.alert).toHaveBeenCalledWith(expectedMessage);
+                expect(console.error).toHaveBeenCalledWith(expectedMessage);
             });
         });
 
         it('should open alert window with default error message when the errorCode does not exist', () => {
             const expectedMessage: string = localizedStrings.ErrorDefault;
             const unknownErrorCode: string = 'unknown error code'
-            spyOn(window, 'alert');
+            spyOn(console, 'error');
 
             service.handleError(unknownErrorCode);
-            expect(window.alert).toHaveBeenCalledWith(expectedMessage);
+            expect(console.error).toHaveBeenCalledWith(expectedMessage);
         });
     });
 

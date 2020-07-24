@@ -14,7 +14,7 @@ export class ErrorService {
 
     public handleError(error): void {
         const errorMessage: string = this.errorMessage(error);
-        alert(errorMessage);
+        console.error(errorMessage);
     }
 
     private errorMessage(code: string) {

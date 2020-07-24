@@ -11,7 +11,6 @@ export class DashboardPage implements OnInit {
   constructor(private errorService: ErrorService) { }
 
   ngOnInit() {
-    this.errorService.handleError('auth/invalid-verification-code');
   }
 
 }

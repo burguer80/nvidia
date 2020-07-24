@@ -126,6 +126,7 @@ export class LoginPage implements AfterViewInit, OnInit {
                 this.navigationService.navigateToDashboard();
                 this.showFirstStep()
             }).catch((error) => {
+                debugger;
                 this.handleError(error);
                 this.showProgressBar = false;
             });
