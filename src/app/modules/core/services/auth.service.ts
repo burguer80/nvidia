@@ -16,10 +16,6 @@ export class AuthService {
     constructor(public af: AngularFireAuth, private navigationService: NavigationService) {
     }
 
-    get confirmationResult(): ConfirmationResult {
-        return this.firebaseConfirmationResult;
-    }
-
     get isLoggedIn(): Observable<boolean> {
         return this.af.authState.pipe(
             map((user: any) => {
@@ -36,10 +32,10 @@ export class AuthService {
             }));
     }
 
-    logOut() {
-        return this.af.auth.signOut().then(() => {
+    logOut(): void {
+        this.af.auth.signOut().then(async () => {
             console.log('Logged out');
-            this.navigationService.navigateToLogin();
+            await this.navigationService.navigateToLogin();
         });
     }
 

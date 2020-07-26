@@ -19,7 +19,7 @@ export class LoginPage implements AfterViewInit, OnInit {
     @ViewChild("phoneLineInput", {static: false}) phoneLineInputField: IonInput;
     @ViewChild("confirmationCodeInput", {static: false}) confirmationCodeInputField: IonInput;
     @ViewChild('cd', {static: false}) private countdown: CountdownComponent;
-    confirmationResult = this.authService.confirmationResult;
+    confirmationResult = this.authService.firebaseConfirmationResult;
     countdownSeconds = 120;
     hideConfirmationSection = true;
     hidePhoneNumberSection = true;
