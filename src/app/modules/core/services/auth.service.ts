@@ -40,6 +40,7 @@ export class AuthService {
     }
 
     recaptchaVerifier(recaptchaContainerId: string) {
+        // TODO: this method must be refactored
         const options = {
             size: 'invisible'
         };

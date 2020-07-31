@@ -14,6 +14,14 @@ class confirmationResult implements firebase.auth.ConfirmationResult {
     }
 }
 
+class ApplicationVerifier implements firebase.auth.ApplicationVerifier {
+    type: string;
+
+    verify(): Promise<string> {
+        return Promise.resolve(undefined);
+    }
+}
+
 interface MockUser {
     displayName: string,
     isAnonymous: boolean,
@@ -29,8 +37,10 @@ describe('AuthService', () => {
     };
     const mockAngularFireAuth: any = {
         auth: jasmine.createSpyObj('auth', {
+            'RecaptchaVerifier': Promise.resolve(null),
             'signInAnonymously': Promise.resolve(authState),
             'signOut': Promise.resolve(null),
+            'signInWithPhoneNumber': Promise.resolve(confirmationResult),
         }),
         authState: of(authState),
         setAuthState: (authState: MockUser): void => {
@@ -108,11 +118,28 @@ describe('AuthService', () => {
         it('should be created', () => {
             expect(service.sendOTP).toBeTruthy();
         });
+
+        it('should invoke signInWithPhoneNumber with phoneNumber and confirmationResult', () => {
+            const phoneNumber: string = '555-555-5555';
+            let confirmationResult = new ApplicationVerifier();
+            mockAngularFireAuth.auth.signInWithPhoneNumber.and.callThrough();
+
+            service.sendOTP(phoneNumber, confirmationResult);
+            expect(mockAngularFireAuth.auth.signInWithPhoneNumber).toHaveBeenCalledWith(phoneNumber, confirmationResult);
+        });
     });
 
     describe('verifyOTP', () => {
         it('should be created', () => {
             expect(service.verifyOTP).toBeTruthy();
+        });
+
+        it('should invoke confirmationResult.confirm with otp', () => {
+            const otp: string = 'one time password';
+            const confirmationResult = service.firebaseConfirmationResult;
+            spyOn(confirmationResult, 'confirm' as any);
+            service.verifyOTP(otp, confirmationResult);
+            expect(confirmationResult.confirm).toHaveBeenCalledWith(otp);
         });
     });
 });
