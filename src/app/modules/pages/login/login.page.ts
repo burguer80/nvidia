@@ -70,9 +70,9 @@ export class LoginPage implements AfterViewInit, OnInit {
         }
     }
 
-    navigateToDashboardIfLoggedIn() {
+   async navigateToDashboardIfLoggedIn() {
         if (this.authService.isLoggedIn) {
-            this.navigationService.navigateToDashboard();
+        await this.navigationService.navigateToDashboard();
         }
     }
 

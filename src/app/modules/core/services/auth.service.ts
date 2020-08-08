@@ -6,6 +6,7 @@ import ConfirmationResult = firebase.auth.ConfirmationResult;
 import {map, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {NavigationService} from './navigation.service';
+import {User} from "../models/user.model";
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthService {
 
     get isLoggedIn(): Observable<boolean> {
         return this.af.authState.pipe(
-            map((user: any) => {
+            map((user: User) => {
                 return !!user;
             }),
             tap(loggedIn => {
