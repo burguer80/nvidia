@@ -9,15 +9,15 @@ export class NavigationService {
     constructor(private router: Router) {
     }
 
-    navigateToAccount() {
-        this.router.navigate(['account']);
+    async navigateToAccount(): Promise<void> {
+        await this.router.navigate(['account']);
     }
 
-    navigateToDashboard() {
-        this.router.navigate(['dashboard']);
+    async navigateToDashboard(): Promise<void> {
+        await this.router.navigate(['dashboard']);
     }
 
-    navigateToLogin() {
-        this.router.navigate(['login']);
+    async navigateToLogin(): Promise<void> {
+        await this.router.navigate(['login']);
     }
 }

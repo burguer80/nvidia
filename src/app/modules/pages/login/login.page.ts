@@ -19,8 +19,8 @@ export class LoginPage implements AfterViewInit, OnInit {
     @ViewChild("phoneLineInput", {static: false}) phoneLineInputField: IonInput;
     @ViewChild("confirmationCodeInput", {static: false}) confirmationCodeInputField: IonInput;
     @ViewChild('cd', {static: false}) private countdown: CountdownComponent;
-    confirmationResult = this.authService.confirmationResult;
-    countdownSeconds = 120;
+    confirmationResult = this.authService.firebaseConfirmationResult;
+    countdownSeconds = 300;
     hideConfirmationSection = true;
     hidePhoneNumberSection = true;
     localizedStrings = localizedStrings;
@@ -70,9 +70,9 @@ export class LoginPage implements AfterViewInit, OnInit {
         }
     }
 
-    navigateToDashboardIfLoggedIn() {
+   async navigateToDashboardIfLoggedIn() {
         if (this.authService.isLoggedIn) {
-            this.navigationService.navigateToDashboard();
+        await this.navigationService.navigateToDashboard();
         }
     }
 
@@ -126,6 +126,7 @@ export class LoginPage implements AfterViewInit, OnInit {
                 this.navigationService.navigateToDashboard();
                 this.showFirstStep()
             }).catch((error) => {
+                debugger;
                 this.handleError(error);
                 this.showProgressBar = false;
             });

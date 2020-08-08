@@ -13,11 +13,9 @@ import {CountdownModule} from "ngx-countdown";
 
 @NgModule({
     imports: [
-        CommonModule,
         CountdownModule,
         FormsModule,
         IonicModule,
-        LoginPageRoutingModule,
         ReactiveFormsModule
     ],
     declarations: [LoginPage, PhoneNumberDirective, PhoneWithCountryCodeComponent]

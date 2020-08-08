@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
 import ConfirmationResult = firebase.auth.ConfirmationResult;
 import {map, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {NavigationService} from './navigation.service';
+import {User} from "../models/user.model";
 
 @Injectable({
     providedIn: 'root'
@@ -16,13 +17,9 @@ export class AuthService {
     constructor(public af: AngularFireAuth, private navigationService: NavigationService) {
     }
 
-    get confirmationResult(): ConfirmationResult {
-        return this.firebaseConfirmationResult;
-    }
-
     get isLoggedIn(): Observable<boolean> {
         return this.af.authState.pipe(
-            map((user: any) => {
+            map((user: User) => {
                 return !!user;
             }),
             tap(loggedIn => {
@@ -36,14 +33,15 @@ export class AuthService {
             }));
     }
 
-    logOut() {
-        return this.af.auth.signOut().then(() => {
+    logOut(): void {
+        this.af.auth.signOut().then(async () => {
             console.log('Logged out');
-            this.navigationService.navigateToLogin();
+            await this.navigationService.navigateToLogin();
         });
     }
 
     recaptchaVerifier(recaptchaContainerId: string) {
+        // TODO: this method must be refactored
         const options = {
             size: 'invisible'
         };

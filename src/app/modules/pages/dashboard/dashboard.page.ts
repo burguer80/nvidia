@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ErrorService} from "../../core/services/error.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardPage implements OnInit {
 
-  constructor() { }
+  constructor(private errorService: ErrorService) { }
 
   ngOnInit() {
   }

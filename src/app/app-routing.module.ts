@@ -1,6 +1,9 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './modules/core/guards/auth.guard';
+import {AngularFireAuthGuard, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToLandingPage = () => redirectUnauthorizedTo(['']);
 
 const routes: Routes = [
     {
@@ -15,12 +18,14 @@ const routes: Routes = [
     {
         path: 'dashboard',
         loadChildren: () => import('./modules/pages/dashboard/dashboard.module').then(m => m.DashboardPageModule),
-        canActivate: [AuthGuard]
+        data: {authGuardPipe: redirectUnauthorizedToLandingPage},
+        canActivate: [AngularFireAuthGuard]
     },
     {
         path: 'account',
         loadChildren: () => import('./modules/pages/account/account.module').then(m => m.AccountPageModule),
-        canActivate: [AuthGuard]
+        data: {authGuardPipe: redirectUnauthorizedToLandingPage},
+        canActivate: [AngularFireAuthGuard]
     }
 ];
 
